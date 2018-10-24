@@ -1,0 +1,20 @@
+body {
+    background-color: #39ace7;
+}
+.shadow-block{
+    border:1px solid;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 1px 2px #000;
+    margin: 30px;
+    padding: 30px;
+    border-radius: 10px 10px 10px 10px;
+} 
+.listBlock {
+    height: 150px;
+    overflow-y: scroll;
+}
+.listItems {
+    list-style: none;
+}
