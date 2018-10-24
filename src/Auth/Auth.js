@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { login_user } from './../store/actions/AuthAction';
 import './Auth.css';
 
 class Auth extends Component { 
@@ -15,6 +16,12 @@ class Auth extends Component {
             password: '',
             loading: false,
             error: null
+        }
+    }
+
+    componentDidMount = () => {
+        if(this.props.loggedIn) {
+            this.props.history.push('/dashboard');
         }
     }
 
@@ -41,6 +48,7 @@ class Auth extends Component {
                 this.setState({
                     loading: false
                 }, () => {
+                    this.props.loginUser();
                     history.push('/dashboard');
                 })
             }, 2000)
@@ -85,4 +93,17 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+const mapStateToProps = (state) => {
+    return {
+       loggedIn: state.user_is_logged_in
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginUser: () => {
+            dispatch(login_user());
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

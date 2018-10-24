@@ -1,6 +1,7 @@
-import { GET_AIRPORTS, GET_FLIGHTS, REFRESH_DATA, LOADING } from './../actions/ActionTypes';
+import { GET_AIRPORTS, LOGIN, GET_FLIGHTS, REFRESH_DATA, LOADING } from './../actions/ActionTypes';
 
 const initialState = {
+    user_is_logged_in: false,
     airports: [],
     departingFlights: [],
     arrivingFlights: [],
@@ -8,6 +9,12 @@ const initialState = {
   }
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case LOGIN: {
+            return {
+                ...state,
+                user_is_logged_in: true
+            }
+        }
         case GET_AIRPORTS : {
             return {
                 ...state,

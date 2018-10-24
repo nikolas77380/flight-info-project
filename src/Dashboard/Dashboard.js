@@ -17,6 +17,9 @@ class Dashboard extends Component {
         }
     }
     componentDidMount = () => {
+        if(!this.props.is_logged_in) {
+            this.props.history.push('/');
+        }
         this.props.onLoadDashboard();
     }
     handleClose = () =>  {
@@ -199,6 +202,7 @@ const mapStateToProps = (state) => {
         airports: state.airports,
         departingFlights: state.departingFlights,
         arrivingFlights: state.arrivingFlights,
+        is_logged_in: state.user_is_logged_in,
         loading: state.loading
     }
 }
