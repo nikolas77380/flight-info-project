@@ -72,22 +72,31 @@ export const get_flights = (icao, arrivingMinutes, departingMinutes) => {
     }
 }
 
+function getTimes(time) {
+    let seconds = time * 60;
+    let number = +new Date() - seconds * 1000 * 60;
+    let agoTime = Math.floor(number / 1000);
+    let now = Math.floor(Date.now() / 1000);
+    return {
+        now,
+        agoTime
+    }
+}
+
 function arriving_flights(icao, time) {
     if(time == 0) {
         return 0
     }
-    let now = Math.floor(Date.now() / 1000)
-    let agoTime = now - (+time*60);
-    return axios.get(`https://${API_CONFIG.userName}:${API_CONFIG.userPassword}@opensky-network.org/api/flights/arrival?airport=${icao}&begin=${agoTime}&end=${now}`);
+    let times = getTimes(time);
+    return axios.get(`https://${API_CONFIG.userName}:${API_CONFIG.userPassword}@opensky-network.org/api/flights/arrival?airport=${icao}&begin=${times.agoTime}&end=${times.now}`);
 }
   
 function departing_flights(icao, time) {
     if(time == 0) {
         return 0
     }
-    let now = Math.floor(Date.now() / 1000)
-    let agoTime = now - (+time*60);
-    return axios.get(`https://${API_CONFIG.userName}:${API_CONFIG.userPassword}@opensky-network.org/api/flights/departure?airport=${icao}&begin=${agoTime}&end=${now}`);
+    let times = getTimes(time);
+    return axios.get(`https://${API_CONFIG.userName}:${API_CONFIG.userPassword}@opensky-network.org/api/flights/departure?airport=${icao}&begin=${times.agoTime}&end=${times.now}`);
 }
 
 export const refresh_data = () => {
