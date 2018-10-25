@@ -12,9 +12,16 @@ body {
     border-radius: 10px 10px 10px 10px;
 } 
 .listBlock {
-    height: 150px;
+    height: 20%;
+    max-height: 200px;
     overflow-y: scroll;
 }
 .listItems {
     list-style: none;
+}
+input[type=number] {
+    width: 80px;    
+}
+.border-grey {
+    border-top: 2px solid #e5e5e5;
 }

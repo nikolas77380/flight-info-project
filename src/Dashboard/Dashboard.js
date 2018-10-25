@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Col, Modal, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get_airports, get_flights, refresh_data } from './../store/actions/FlightsAction';
@@ -65,38 +65,13 @@ class Dashboard extends Component {
                         <Modal.Title style={{textAlign:'center', textTransform:'uppercase', fontWeight: 'bold'}}>{selAirport.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h4>Departing flights in the last&ensp; 
-                             <select onChange={this.changeDeparting} name='departing_minutes'>
-                                <option value=''></option> 
-                                <option value='10'>10</option> 
-                                <option value='30'>30</option> 
-                                <option value='60'>60</option> 
-                                <option value='120'>120</option> 
-                                <option value='180'>180</option> 
-                                <option value='240'>240</option> 
-                                <option value='300'>300</option> 
-                                <option value='360'>360</option> 
-                                <option value='420'>420</option> 
-                                <option value='480'>480</option> 
-                                <option value='540'>540</option> 
-                            </select>  minutes
+                        <h4>Departing flights in the last&ensp;
+                             <input type="number" onChange={this.changeDeparting} min="0"/> minutes
                         </h4>
                         {this.renderDepartingFlights()}
+                        <div className="border-grey"></div>
                         <h4>Arriving flights in the last&ensp;
-                             <select onChange={this.changeArriving} name='arriving_minutes'>
-                                <option value=''></option> 
-                                <option value='10'>10</option> 
-                                <option value='30'>30</option> 
-                                <option value='60'>60</option> 
-                                <option value='120'>120</option> 
-                                <option value='180'>180</option> 
-                                <option value='240'>240</option> 
-                                <option value='300'>300</option> 
-                                <option value='360'>360</option> 
-                                <option value='420'>420</option> 
-                                <option value='480'>480</option>
-                                <option value='540'>540</option>  
-                            </select>  minutes
+                            <input type="number" onChange={this.changeArriving} min="0"/> minutes
                         </h4>
                         {this.renderArrivingFlights()}
                     </Modal.Body>
@@ -174,7 +149,7 @@ class Dashboard extends Component {
         } else {
             let airports = this.props.airports.map((airport, index) => {
                 return (
-                    <Col key={airport.key} xs={4} className="align-center" onClick={() => this.handleShow(airport.key)}>
+                    <Col key={airport.key} xs={4} md={4} sm={4} className="align-center" onClick={() => this.handleShow(airport.key)}>
                         <div className="shadow-block" > 
                           {airport.name}
                         </div>
@@ -189,7 +164,9 @@ class Dashboard extends Component {
         return (
             <div className="container margin-top-200 fadeIn">
                 <Grid>
+                    <Row>
                    {this.renderAirports()}
+                   </Row>
                 </Grid>
                 {this.renderModal()}
             </div>
